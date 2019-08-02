@@ -3,7 +3,7 @@ INSERT INTO `user` (`user_id`, `enabled`, `username`,`password`,`password_confir
 
 INSERT INTO `role` (`role_id`, `role_name`) VALUES(1,'ADMIN');
 
-INSERT INTO `user_roles` (`users_user_id`, `roles_role_id`) VALUES(1,1);
+INSERT INTO `user_roles` (`user_user_id`, `roles_role_id`) VALUES(1,1);
 
 
 INSERT INTO `role` (`role_id`, `role_name`) VALUES(1,'ADMIN');

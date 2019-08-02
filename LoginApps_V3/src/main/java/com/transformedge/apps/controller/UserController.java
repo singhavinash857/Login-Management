@@ -40,19 +40,6 @@ public class UserController {
 			String logoutSuccessMsg = Translator.toLocale("user.logout.successfully");
 			model.addAttribute("message", logoutSuccessMsg);
 		}
-		
-		/*Object errorObj = httpSession.getAttribute("error");
-		System.out.println("errorObj ::"+errorObj);
-		if (errorObj != null) {
-			model.addAttribute("error", errorObj);
-		}
-		Object logoutObj = httpSession.getAttribute("message");
-		System.out.println("logoutObj ::"+logoutObj);
-
-		if (logoutObj != null){
-			model.addAttribute("message", logoutObj);
-			httpSession.invalidate(); 
-		}*/
 		return "/loginPage/MainLoginPage";
 	}
 

@@ -1,8 +1,11 @@
 package com.transformedge.apps.serviceimpl;
 
+import java.sql.Date;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.stream.Collectors;
 
 import javax.mail.internet.AddressException;
 
@@ -18,8 +21,11 @@ import org.springframework.stereotype.Service;
 import com.transformedge.apps.appconfiguration.Translator;
 import com.transformedge.apps.entity.Employee;
 import com.transformedge.apps.entity.Task;
+import com.transformedge.apps.entity.TaskDailyComments;
 import com.transformedge.apps.exceptions.UserNotFoundException;
 import com.transformedge.apps.loggedinfo.IAuthenticationFacade;
+import com.transformedge.apps.model.FinalReportModel;
+import com.transformedge.apps.model.StatusReport;
 import com.transformedge.apps.model.TaskResponse;
 import com.transformedge.apps.repository.TaskRepository;
 import com.transformedge.apps.service.EmployeeService;
@@ -62,6 +68,8 @@ public class TaskServiceIMPL implements TaskService{
 		String loggedInEmailId = authenticationFacade.getAuthentication().getName();
 		task.setTaskAssigner(loggedInEmailId);
 		task.setTaskAssignedDate(dateTimeUtility.getTodayDate());
+		task.setTaskNum(String.format("%04d", new Random().nextInt(10000)));
+
 		Employee employee = employeeService.getEmployeeByMailId(task.getTaskSupervisor());
 		employee.getTasks().add(task);
 		if(employeeService.saveEmployee(employee) != null){
@@ -225,13 +233,36 @@ public class TaskServiceIMPL implements TaskService{
 			throw new UserNotFoundException(taskNotExist + taskSeupervisor);
 		}	
 	}
-	
+
 	private void setPageInfo(TaskResponse taskResponse, Page<Task> page) {
 		taskResponse.setPageNum(page.getNumber());
 		taskResponse.setPageSize(page.getSize());
 		taskResponse.setToalPages(page.getTotalPages());
 		taskResponse.setTotalCounts(page.getTotalElements());
 		taskResponse.setHashMore(page.hasNext());		
+	}
+
+	@Override
+	public FinalReportModel getTasksBySupervisorForCurrentDate(Date todayDate, String mail) {
+		List<Task> listTasks = taskRepository.findByTaskSupervisor(mail);
+		Employee employee = employeeService.getEmployeeByMailId(mail);
+		FinalReportModel finalReportModel = new FinalReportModel();
+		for(Task task : listTasks){
+			List<TaskDailyComments> taskDailyCommentsList = task.getTaskDailyComments().stream().filter(c -> c.getTaskCommentDate().toString().equals(todayDate.toString())).collect(Collectors.toList());
+			if(taskDailyCommentsList != null && taskDailyCommentsList.size() > 0){
+				for(TaskDailyComments comment : taskDailyCommentsList){
+					StatusReport statusReport = new StatusReport();
+					statusReport.setComments(comment.getTaskComments());
+					statusReport.setDate(comment.getTaskCommentDate());
+					statusReport.setHours(Integer.parseInt(comment.getTaskWorkingHours()));
+					statusReport.setName(employee.getEmployeeFirstName()+ " "+employee.getEmployeeLastName());
+					statusReport.setStatus(comment.getTaskStatus());
+					statusReport.setTaskName(task.getTaskName());
+					finalReportModel.getFinalDailyReport().add(statusReport);
+				}
+			}
+		}
+		return finalReportModel;
 	}
 
 }

@@ -16,6 +16,7 @@ public class LoginAppsApplication extends SpringBootServletInitializer{
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
         return application.sources(LoginAppsApplication.class);	
     }
+	
 	public static void main(String[] args) {
 		SpringApplication.run(LoginAppsApplication.class, args);
 	}

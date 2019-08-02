@@ -5,11 +5,14 @@ import org.springframework.stereotype.Service;
 
 import com.transformedge.apps.entity.Task;
 import com.transformedge.apps.entity.TaskDailyComments;
+import com.transformedge.apps.model.FinalReportModel;
 import com.transformedge.apps.model.TaskDailyCommentsModel;
+import com.transformedge.apps.model.TaskFinalDailyReportCommentsModel;
 import com.transformedge.apps.repository.DailyTaskCommentRepository;
 import com.transformedge.apps.service.DailyTaskCommentsService;
 import com.transformedge.apps.service.TaskService;
 import com.transformedge.apps.utils.DateTimeUtility;
+import com.transformedge.apps.utils.MailsUtils;
 
 @Service
 public class DailyTaskCommentsServiceIMPL implements DailyTaskCommentsService{
@@ -22,6 +25,9 @@ public class DailyTaskCommentsServiceIMPL implements DailyTaskCommentsService{
 	
 	@Autowired
 	DateTimeUtility dateTimeUtility;
+	
+	@Autowired
+	MailsUtils mailUtils;
 	
 	@Override
 	public TaskDailyComments saveDailyCommentsToTaskBySupervisor(final TaskDailyCommentsModel taskDailyCommentsModel,
@@ -51,4 +57,15 @@ public class DailyTaskCommentsServiceIMPL implements DailyTaskCommentsService{
 		dailyTaskCommentRepository.deleteById(commentId);		
 	}
 
+	@Override
+	public void sendFianlDailyComments(TaskFinalDailyReportCommentsModel model,String from) {
+		mailUtils.sendFianlDailyComments(model,from);
+	}
+
+	@Override
+	public FinalReportModel getFianlDailyCommentsByCommentId(String mail) {
+		System.out.println(mail);
+		System.out.println(dateTimeUtility.getTodayDate());
+		return taskService.getTasksBySupervisorForCurrentDate(dateTimeUtility.getTodayDate(),mail);
+	}
 }

@@ -47,8 +47,6 @@ body {
 						$("#btnSubmit").click(function(e) {
 							var valid = this.form.checkValidity();
 							if (valid) {
-								/* document
-								.getElementById("myModal").style.display = "block"; */
 								e.preventDefault();
 								$("#btnSubmit").attr("disabled", true);
 								saveTask();
@@ -71,8 +69,7 @@ body {
 						function loadTaskData(page_number, pageSize) {
 							console.log("inside the method loadData!!"
 									+ page_number);
-							$
-									.ajax({
+						   	$.ajax({
 										url : "/home/task_controller/get_all_task_by_Assigner?page_number="
 												+ page_number + "&pageSize=" + pageSize,
 										crossDomain : true,
@@ -85,8 +82,8 @@ body {
 
 											var tasktable = $('#list tbody');
 											$('#list tbody').empty();
-											if (data.values != ""
-													|| data.values != null) {
+											if (data.values != "" && data.values != null && data.values.length  > 0) {
+												console.log("values presents");
 												if (data.hashMore == false) {
 													document
 															.getElementById("next_button_id").disabled = true;
@@ -94,7 +91,7 @@ body {
 													document
 															.getElementById("next_button_id").disabled = false;
 												}
-												document.getElementById("list").style.display = "block";
+												document.getElementById("tab").style.display = "block";
 
 												document
 														.getElementById("pageNumberId").innerHTML = data.pageNum+1 +" Of "+data.toalPages;
@@ -109,6 +106,9 @@ body {
 																					+ "<button id='btn' type='button' value='Delete' class='btn btn-primary' onclick='deleteFunc("
 																					+ task.taskId
 																					+ ");'  style='background-color: rgba(0,0,0,0.4) !important;border-color:rgba(0,0,0,0.4) !important;color:rgb(255,0,0);'><i class='far fa-trash-alt'></i></button>"
+																					+ "</td>"
+																					+ "<td>"
+																					+ task.taskNum
 																					+ "</td>"
 																					+ "<td>"
 																					+ task.taskName
@@ -139,8 +139,9 @@ body {
 																					+ "</td>"
 																					+ "</tr>")
 																});
+											}else{
+												document.getElementById("tab").style.display = "none";
 											}
-
 										},
 										error : function(e) {
 											$("#btnSubmit").attr("disabled",
@@ -153,8 +154,7 @@ body {
 
 						function saveTask() {
 							var formData = {
-								'taskName' : $('#taskName option:selected')
-										.val(),
+								'taskName' : $('input[name=taskName]').val(),
 								'taskType' : $('#projectType option:selected')
 										.val(),
 								'taskAssignmentType' : $(
@@ -224,13 +224,16 @@ body {
 			<div class="row register-form">
 				<div class="col-md-4">
 					<div class="form-group">
-						<label for="taskName"><b>Project Name :</b></label> <select
+						<label for="taskName"><b>Project Name :</b></label> 
+						<input type="text" name="taskName" id="taskName" class="form-control" placeholder="Enter Task" required>
+						
+						<!-- <select
 							class="form-control" name="taskName" id="taskName" required>
 							<option value="" selected disabled>-- Select Task Name--</option>
 							<option value="Roots info">Roots info</option>
 							<option value="Spirax Sarco Sustem">Spirax Sarco Sustem</option>
 							<option value="Task Management">Task Management</option>
-						</select>
+						</select> -->
 					</div>
 				</div>
 				<div class="col-md-4">
@@ -383,8 +386,9 @@ body {
 				<thead>
 					<tr style="font-weight: bold" id="tableHeadingCSS">
 						<td>Action</td>
-						<td>Task Name</td>
-						<td>Project Type</td>
+						<td>Task Id</td>
+						<td>Task</td>
+						<td>Task Type</td>
 						<td>Assignment Type</td>
 						<td>Task Supervisor</td>
 						<td>Task Assigner</td>
@@ -392,7 +396,6 @@ body {
 						<td>Task Priority</td>
 						<td>Task Description</td>
 						<td>Date</td>
-
 					</tr>
 				</thead>
 				<tbody></tbody>

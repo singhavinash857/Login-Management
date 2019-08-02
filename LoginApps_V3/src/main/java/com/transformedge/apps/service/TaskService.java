@@ -1,8 +1,10 @@
 package com.transformedge.apps.service;
 
+import java.sql.Date;
 import java.util.List;
 
 import com.transformedge.apps.entity.Task;
+import com.transformedge.apps.model.FinalReportModel;
 import com.transformedge.apps.model.TaskResponse;
 
 public interface TaskService {
@@ -17,4 +19,5 @@ public interface TaskService {
 	void deleteTaskBySupervisorAndTaskId(String name, long id);
 	TaskResponse getAllTaskAssignedByAssigner(String name, int page_number, int pageSize);
 	TaskResponse getTaskBySupervisorMailIdByPageNumber(String name, int page_number, int pageSize);
+	FinalReportModel getTasksBySupervisorForCurrentDate(Date todayDate, String mail);
 }

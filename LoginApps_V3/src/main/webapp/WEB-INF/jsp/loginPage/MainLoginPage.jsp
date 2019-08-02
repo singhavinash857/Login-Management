@@ -131,48 +131,10 @@ input:focus {
 											}
 										});
 
-					/* 	function login() {
-							var formData = {
-								'username' : $('input[name=username]').val(),
-								'password' : $('input[name=password]').val()
-							};
-							console.log(formData);
-
-							$
-									.ajax({
-										type : "POST",
-										contentType : "application/json",
-										url : "/getlogin",
-										data : JSON.stringify(formData),
-										dataType : 'json',
-										success : function(data) {
-											console.log(data);
-
-											if (false) {
-												//redirect to home page
-												window.location = "http://www.google.com";
-												//document.location.href = window.location.href;
-											} else {
-												//redirect to same page
-												window.location = "http://www.google.com";
-
-											}
-										},
-										error : function(e) {
-											//alert("ERROR!!")
-											alert("Invalid Username and Password!");
-											console.log('errorThrown', e);
-										}
-									});
-						} */
-
 						function resetPassword() {
-
 							var formData = {
-								'email' : $('input[name=username]').val()
+								'email' : $('input[name=resetusername]').val()
 							};
-							document.getElementById("resetbtn").disabled = true;
-							//$("input[type=submit]").prop("disabled", "disabled");
 							console.log(formData);
 							$.ajax({
 										crossDomain : true,

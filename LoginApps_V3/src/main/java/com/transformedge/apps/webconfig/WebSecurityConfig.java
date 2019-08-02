@@ -46,7 +46,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		.antMatchers("/home/employee_controller/**").permitAll()
 		.antMatchers("/home/task_controller/**").permitAll()
 		.antMatchers("/home/file_controller/**").hasAuthority("ADMIN")
-		.antMatchers("/home/comments_controller/**").hasAnyAuthority("ADMIN", "EMPLOYEE")
+		.antMatchers("/home/comments_controller/**").permitAll()
 		.antMatchers("/home/comments_reply_controller/**").permitAll()
 		.antMatchers("/home/password_reset_controller/**").permitAll()
 		.antMatchers("/home/test_controller/**").permitAll()
@@ -79,5 +79,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		web
 		.ignoring()
 		.antMatchers("/resources/**", "/static/**","/customCss/**", "/images/**");
+	}
+	
+	public static void main(String[] args) {
+			String password = "123456";
+			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+			String hashedPassword = passwordEncoder.encode(password);
+			System.out.println(hashedPassword);
 	}
 }

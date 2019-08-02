@@ -80,8 +80,11 @@ body {
 																			+ "<button id='btn' type='button' onclick='openProjectDetails("
 																			+ task1.taskId
 																			+ ");'  style='background-color: rgba(0,0,0,0.4) !important;border-color:rgba(0,0,0,0.4) !important;color:rgba(30,144,255);'>"
-																			+ task1.taskName
+																			+ task1.taskNum
 																			+ "</button>"
+																			+ "</td>"
+																			+ "<td>"
+																			+ task1.taskName
 																			+ "</td>"
 																			+ "<td>"
 																			+ task1.taskType
@@ -151,8 +154,9 @@ body {
 			<table class="table table-bordered" id="list">
 				<thead>
 					<tr>
-						<td>Project Name</td>
-						<td>Project Type</td>
+						<td>Task Id</td>
+						<td>Task Name</td>
+						<td>Task Type</td>
 						<td>Assignment Type</td>
 						<td>Assigned By</td>
 						<td>Priority</td>

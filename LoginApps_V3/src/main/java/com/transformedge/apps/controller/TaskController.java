@@ -104,7 +104,6 @@ public class TaskController {
 	@GetMapping(value="get_task/{id}")
 	public ResponseEntity<?> getTaskByTaskId(@PathVariable long id){
 		logger.info("INSIDE TaskController START METHOD getTaskByTaskId");
-		logger.info("task id ::"+id);
 		Task taskWithId = taskService.getTaskByTaskId(id);
 		/*
 	    Task taskWithIdAndLoggedinUser = taskService.getTaskByTaskId(authenticationFacade.getAuthentication().getName(),id);

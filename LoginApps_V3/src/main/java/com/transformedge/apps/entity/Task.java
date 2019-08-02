@@ -30,6 +30,8 @@ public class Task {
 	  @GeneratedValue(strategy=GenerationType.IDENTITY)
 	  private long taskId;
 	  
+	  private String taskNum;
+	  
 	  @NotNull(message = "{task.taskName.notNull}")
 	  private String taskName;
 	  

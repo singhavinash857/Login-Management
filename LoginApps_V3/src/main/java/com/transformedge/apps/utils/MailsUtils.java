@@ -1,6 +1,7 @@
 package com.transformedge.apps.utils;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
@@ -18,9 +19,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.PropertySources;
 import org.springframework.stereotype.Component;
 
 import com.transformedge.apps.entity.Task;
+import com.transformedge.apps.model.StatusReport;
+import com.transformedge.apps.model.TaskFinalDailyReportCommentsModel;
 
 import lombok.Data;
 
@@ -28,6 +32,11 @@ import lombok.Data;
 @Configuration
 @Component
 @PropertySource("classpath:application.yml")
+
+@PropertySources({
+	@PropertySource("classpath:application.yml"),
+	@PropertySource("classpath:application.properties")
+})
 public class MailsUtils {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -78,7 +87,9 @@ public class MailsUtils {
 			+ "Click this link to check you assignment"
 			+ "</a></br></br>"
 			+ "<br>Thank you!";
-
+	
+	StringBuilder email = new StringBuilder();
+	
 	public boolean sendPasswordResetToken(String employeeFirstName, String username, String token) throws AddressException {
 		String htmlBodyWithtoken = PASSWORD_RESET_HTMLBODY.replace("$fisrtName", employeeFirstName);
 		String passwordResetUrl = PASSWORD_RESET_URL.replace("$tokenValue", token);
@@ -159,15 +170,151 @@ public class MailsUtils {
 		} catch (MessagingException e) {
 			e.printStackTrace();
 		}  
-		// creates message part
-		//MimeBodyPart messageBodyPart = new MimeBodyPart();
 		try {
-			//messageBodyPart.setContent(PASSWORD_RESET_HTMLBODY, "UTF-8", "html");
 			Transport.send(msg);
 			return true;
 		} catch (MessagingException e) {
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+	String openTd = "<td style='text-align:center'>";
+	String closeTd = "</td>";
+	
+	String openTr = "<tr style='text-align:center'>";
+	String closeTr = "</tr>";
+	
+	public void sendFianlDailyComments(TaskFinalDailyReportCommentsModel model,String from) {
+        // Message info       
+        String subject = "Java Send Mail Attachement Example";
+        String body = "Welcome to Java Mail!";
+        
+        email.append("<html><body>"
+        + "<table style='border:2px solid black'>");
+        email.append("<tr bgcolor=\"#33CC99\">");
+        
+        email.append(openTd);
+        email.append("Name");
+        email.append(closeTd);
+        
+        email.append(openTd);
+        email.append("Date");
+        email.append(closeTd);
+        
+        email.append(openTd);
+        email.append("Task");
+        email.append(closeTd);
+        
+        email.append(openTd);
+        email.append("Hours");
+        email.append(closeTd);
+        
+        email.append(openTd);
+        email.append("Status");
+        email.append(closeTd);
+        
+        email.append(openTd);
+        email.append("Comments");
+        email.append(closeTd);
+        
+        email.append("</tr>");
+        
+        for(StatusReport statusReport : model.getData()){
+            email.append(openTr);
+            
+            email.append(openTd);
+            email.append(statusReport.getName());
+            email.append(closeTd);
+
+            email.append(openTd);
+            email.append(statusReport.getDate());
+            email.append(closeTd);
+            
+            email.append(openTd);
+            email.append(statusReport.getTaskName());
+            email.append(closeTd);
+            
+            email.append(openTd);
+            email.append(statusReport.getHours());
+            email.append(closeTd);
+            
+            email.append(openTd);
+            email.append(statusReport.getStatus());
+            email.append(closeTd);
+            
+            email.append(openTd);
+            email.append(statusReport.getComments());
+            email.append(closeTd);
+            
+            email.append(closeTr);
+        }
+        email.append("</table></body></html>");
+		
+		try {
+			sendFromGMail(model.getTo(), model.getCc(), subject, body, from);
+			System.out.println("Email Sent....!");
+		} catch (Exception ex) {
+			System.out.println("Could not send email....!");
+			ex.printStackTrace();
+		}
+	}
+ 
+	private void sendFromGMail(List<String> to, List<String> cc, String subject, String body,String fromMailId) {
+		Properties properties = getProperties();
+        Authenticator auth = new Authenticator() {
+            public PasswordAuthentication getPasswordAuthentication() {
+            	return new PasswordAuthentication(SERVICE_MAIL_ID , SERVICE_MAIL_ID_PASSWORD);
+            }
+        };
+        
+        Session session = Session.getInstance(properties, auth);        
+        MimeMessage message = new MimeMessage(session);
+ 
+        try {
+            message.setFrom(new InternetAddress(fromMailId));
+            InternetAddress[] toAddress = new InternetAddress[to.size()];
+            for( int i = 0; i < to.size(); i++ ) {
+                toAddress[i] = new InternetAddress(to.get(i));
+            }
+            for( int i = 0; i < toAddress.length; i++) {
+                message.addRecipient(Message.RecipientType.TO, toAddress[i]);
+            }
+            
+            InternetAddress[] ccAddress = new InternetAddress[cc.size()];
+            
+            // To get the array of ccaddresses
+            for( int i = 0; i < cc.size(); i++ ) {
+                ccAddress[i] = new InternetAddress(cc.get(i).trim());
+            }
+            
+            // Set cc: header field of the header.
+            for( int i = 0; i < ccAddress.length; i++) {
+                message.addRecipient(Message.RecipientType.CC, ccAddress[i]);
+            }
+            
+            // Set Subject: header field
+            message.setSubject(subject);
+            message.setSentDate(new Date());
+            message.setContent(email.toString(),"text/html"); 
+            
+//            Transport transport = session.getTransport(MAIL_SERVER);
+//            transport.connect(SMTP_HOST_NAME, SMTP_HOST_PORT, USER_NAME, PASSWORD);
+//            transport.sendMessage(message, message.getAllRecipients());
+//            transport.close();
+            
+            try {
+            	Transport.send(message);
+    		} catch (MessagingException e) {
+    			e.printStackTrace();
+    		}
+            System.out.println("Sent Message Successfully....");
+        }
+        catch (AddressException ae) {
+            ae.printStackTrace();
+        }
+        catch (MessagingException me) {
+            me.printStackTrace();
+        }
 	}
 }

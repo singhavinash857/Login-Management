@@ -271,6 +271,7 @@ body {
 							<option value="9">9 hour</option>
 							<option value="10">10 hour</option>
 							<option value="11">11 hour</option>
+							<option value="12">12 hour</option>
 						</select>
 					</div>
 				</div>
@@ -327,7 +328,5 @@ body {
 	</div>
 	<br>
 	<br>
-
-
 </body>
 </html>
