@@ -222,11 +222,8 @@ html, body {
 						<td>Project Name</td>
 						<td>Project Type</td>
 						<td>Assignment Type</td>
-
 						<td>Current Status</td>
-
 						<td>Date</td>
-
 					</tr>
 				</thead>
 				<tbody id="myTable">

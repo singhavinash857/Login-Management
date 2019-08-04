@@ -224,16 +224,9 @@ body {
 			<div class="row register-form">
 				<div class="col-md-4">
 					<div class="form-group">
-						<label for="taskName"><b>Project Name :</b></label> 
-						<input type="text" name="taskName" id="taskName" class="form-control" placeholder="Enter Task" required>
-						
-						<!-- <select
-							class="form-control" name="taskName" id="taskName" required>
-							<option value="" selected disabled>-- Select Task Name--</option>
-							<option value="Roots info">Roots info</option>
-							<option value="Spirax Sarco Sustem">Spirax Sarco Sustem</option>
-							<option value="Task Management">Task Management</option>
-						</select> -->
+						<label for="taskName"><b>Project Name :</b></label> <input
+							type="text" name="taskName" id="taskName" class="form-control"
+							placeholder="Enter Task" required>
 					</div>
 				</div>
 				<div class="col-md-4">
@@ -250,7 +243,6 @@ body {
 					</div>
 				</div>
 				<div class="col-md-4">
-
 					<div class="form-group">
 						<label for="assignmentType"><b>Assignment Type :</b></label> <select
 							class="form-control" name="assignmentType" id="assignmentType"
@@ -258,7 +250,8 @@ body {
 							<option value="" selected disabled>-- Select Assignment
 								Type--</option>
 							<option value="Internal R&D">Internal R&D</option>
-							<option value="Learning & Development"></option>
+							<option value="Learning & Development">Learning &
+								Development</option>
 							<option value=""></option>
 						</select>
 					</div>
@@ -280,29 +273,15 @@ body {
 						</select>
 					</div>
 				</div>
-				<!-- <div class="col-md-4">
-				<div class="form-group">
-					<label for="taskAssigner"><b>Task Assigner :</b></label> <select
-						class="form-control" name="taskAssigner" id="taskAssigner"
-						required>
-						<option value="" selected disabled>-- Select Task
-							Assigner --</option>
-						<option value="kathir.k@transformedge.com">kathir.k@transformedge.com</option>
-						<option value="avinashsingh857@gmail.com">avinashsingh857@gmail.com</option>
-					</select>
-				</div>
-			</div> -->
 				<div class="col-md-4">
 					<div class="form-group">
-						<label for="taskStatus"><b>Task Status :</b></label> <select
+						<label for="taskStatus"><b>Task Status :</b></label> 
+						<select
 							class="form-control" name="taskStatus" id="taskStatus" required>
-							<option value="initialize">Initialized</option>
-							<option value="Yet To Start">Yet To Start</option>
-							<option value="Started">Started</option>
-							<option value="In Development">In Development</option>
-							<option value="Yet To Finish">Yet To Finish</option>
-							<option value="Close">Close</option>
-
+							<option value="New">New</option>
+							<option value="Active">Active</option>
+							<option value="In Progress">In Progress</option>
+							<option value="Closed">Close</option>
 						</select>
 					</div>
 				</div>
@@ -315,10 +294,9 @@ body {
 							required>
 							<option value="" selected disabled>-- Select Task
 								Priority--</option>
-							<option value="Medium">Medium</option>
-							<option value="High">High</option>
 							<option value="Critical">Critical</option>
-							<option value="Bug">Bug</option>
+							<option value="Medium">Medium</option>
+							<option value="High">Low</option>
 						</select>
 					</div>
 				</div>

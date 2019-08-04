@@ -51,6 +51,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		.antMatchers("/home/password_reset_controller/**").permitAll()
 		.antMatchers("/home/test_controller/**").permitAll()
 		.antMatchers("/resetPassword").permitAll()
+		.antMatchers("/home/lov_controller/**").permitAll()
 /*		.antMatchers("/home/redirect_controller/**").permitAll()
 */		.anyRequest()
 		.authenticated()

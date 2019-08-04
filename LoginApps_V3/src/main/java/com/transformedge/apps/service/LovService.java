@@ -1,9 +1,13 @@
 package com.transformedge.apps.service;
 
-import javax.validation.Valid;
+import java.util.List;
 
+import com.transformedge.apps.entity.Designation;
 import com.transformedge.apps.entity.LovsInfo;
+import com.transformedge.apps.entity.Role;
 
 public interface LovService {
-	LovsInfo saveLovData(@Valid LovsInfo lovData);
+	LovsInfo saveLovData(LovsInfo lovData);
+	List<Designation> getDesignations();
+	List<Role> getRoles();
 }

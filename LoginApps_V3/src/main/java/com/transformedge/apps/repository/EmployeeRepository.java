@@ -15,5 +15,6 @@ public interface EmployeeRepository extends CrudRepository<Employee, Long>{
 		Page<Employee> findAllEmployees(Pageable pageable);
 		List<Employee> findAll(Pageable pageable);
 		
-		
+		@Query("SELECT u FROM Employee u WHERE u.employeeStatus = 'Active'")
+		List<Employee> findAllEmployees();
 }

@@ -691,16 +691,13 @@ body {
 					</div> -->
 
 					<div class="form-group">
-						<label for="employeeDesignation"><b>Designation* :</b></label> <select
-							class="form-control" name="employeeDesignation"
-							id="employeeDesignation" value="" required>
-							<option value="Jr.Associate Consultant">Jr.Associate
-								Consultant</option>
-							<option value="Associate Consultant">Associate
-								Consultant</option>
+						<label for="employeeDesignation"><b>Designation* :</b></label> 
+						
+						<select class="form-control" name="employeeDesignation" id="employeeDesignation" value="" required>
+							<option value="Jr.Associate Consultant">Jr.Associate Consultant</option>
+							<option value="Associate Consultant">Associate Consultant</option>
 							<option value="Software Engineer">Software Engineer</option>
-							<option value="Sr.Software Engineer">Sr.Software
-								Engineer</option>
+							<option value="Sr.Software Engineer">Sr.Software Engineer</option>
 							<option value="HR">HR</option>
 						</select>
 					</div>

@@ -246,33 +246,18 @@ body {
 						<label for="taskStatus"><b>Task Status :</b></label> <select
 							class="form-control" name="taskStatus" id="taskStatus" required>
 							<option value="">- - select - -</option>
-							<option value="initialize">initialize</option>
-							<option value="Yet To Start">Yet To Start</option>
-							<option value="Started">Started</option>
-							<option value="In Development">In Development</option>
-							<option value="Yet To Finish">Yet To Finish</option>
-							<option value="Close">Close</option>
+							<option value="New">New</option>
+							<option value="Active">Active</option>
+							<option value="In Progress">In Progress</option>
+							<option value="Closed">Close</option>
 						</select>
 					</div>
 				</div>
 				<div class="col-md-4">
 					<div class="form-group">
-						<label for="workingHours"><b>Working Hours :</b></label> <select
-							class="form-control" name="workingHours" id="workingHours"
+						<label for="workingHours"><b>Working Hours :</b></label> <input
+							type="number" min="0" class="form-control" name="workingHours" id="workingHours"
 							required>
-							<option value="1">1 hour</option>
-							<option value="2">2 hour</option>
-							<option value="3">3 hour</option>
-							<option value="4">4 hour</option>
-							<option value="5">5 hour</option>
-							<option value="6">6 hour</option>
-							<option value="7">7 hour</option>
-							<option value="8">8 hour</option>
-							<option value="9">9 hour</option>
-							<option value="10">10 hour</option>
-							<option value="11">11 hour</option>
-							<option value="12">12 hour</option>
-						</select>
 					</div>
 				</div>
 				<div class="col-md-4"></div>
