@@ -73,7 +73,7 @@ body {
 								'#taskStatus option:selected')
 								.val(),
 								'taskWorkingHours' : $(
-								'#workingHours option:selected')
+								'#workingHours')
 								.val(),
 								'taskDailyComments' : $('textarea[name=comments]').val()
 							};

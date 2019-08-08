@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.transformedge.apps.appconfiguration.Translator;
 import com.transformedge.apps.entity.Designation;
-import com.transformedge.apps.entity.Employee;
 import com.transformedge.apps.entity.LovsInfo;
 import com.transformedge.apps.entity.Role;
 import com.transformedge.apps.exceptions.ErrorFormInfo;
@@ -72,4 +71,16 @@ public class LovController {
 		return new ResponseEntity<>(errorInfo, HttpStatus.NOT_FOUND);
 	}
 	
+	@GetMapping(value="/get-employee-mails")
+	public ResponseEntity<?> getEmployeeMails(HttpServletRequest request){
+		List<Map<String,String>> roleList = lovService.getEmployeeMails();
+		ErrorFormInfo errorInfo = null;
+		if(roleList != null){
+			return new ResponseEntity<>(roleList , HttpStatus.OK);
+		}else{
+			String successMsg = Translator.toLocale("user.list.notExist");
+			errorInfo = new ErrorFormInfo(HttpStatus.NOT_FOUND, true, request.getRequestURI(), successMsg, null);
+		}
+		return new ResponseEntity<>(errorInfo, HttpStatus.NOT_FOUND);
+	}
 }

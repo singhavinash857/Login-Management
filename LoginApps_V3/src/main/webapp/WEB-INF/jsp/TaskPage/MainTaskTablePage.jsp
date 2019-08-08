@@ -25,7 +25,6 @@ body {
 	$(document)
 			.ready(
 					function() {
-
 						var currentPageNumber = 1;
 						var pageSize = 10;
 						loadDataToTable(currentPageNumber,pageSize);

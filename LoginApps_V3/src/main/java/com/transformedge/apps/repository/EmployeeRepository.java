@@ -11,10 +11,7 @@ import com.transformedge.apps.entity.Employee;
 
 public interface EmployeeRepository extends CrudRepository<Employee, Long>{
 		Employee findByEmployeeMailId(String employeemailid);
-		@Query("SELECT u FROM Employee u WHERE u.employeeStatus = 'Active'")
-		Page<Employee> findAllEmployees(Pageable pageable);
-		List<Employee> findAll(Pageable pageable);
 		
 		@Query("SELECT u FROM Employee u WHERE u.employeeStatus = 'Active'")
-		List<Employee> findAllEmployees();
+		Page<Employee> findAllEmployees(Pageable pageable);
 }

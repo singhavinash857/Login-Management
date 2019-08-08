@@ -53,4 +53,11 @@ public class PageRedirectController {
 		model.addObject("taskId", taskId);
 		return model;
 	}
+	
+	@GetMapping("/finalReport")
+	public ModelAndView finalDailyStatusReport() {
+		logger.info("INSIDE PageRedirectController START METHOD finalDailyStatusReport:");
+		ModelAndView model = new ModelAndView("chosen_lib/finalReport");
+		return model;
+	}
 }
