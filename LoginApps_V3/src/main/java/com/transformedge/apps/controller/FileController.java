@@ -21,13 +21,13 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.transformedge.apps.appconfiguration.CsvConfiguration;
 import com.transformedge.apps.appconfiguration.Translator;
 import com.transformedge.apps.entity.Employee;
 import com.transformedge.apps.entity.FileDetailsDb;
 import com.transformedge.apps.exceptions.ErrorFormInfo;
 import com.transformedge.apps.service.DBFileStorageService;
 import com.transformedge.apps.service.EmployeeService;
+import com.transformedge.apps.utils.MailsUtils;
 import com.transformedge.apps.utils.StringUtils;
 
 @RestController
@@ -38,8 +38,11 @@ public class FileController {
 
 	private static final Logger logger = LoggerFactory.getLogger(FileController.class);
 
+//	@Autowired
+//	CsvConfiguration yamlCsvConfiguration;
+	
 	@Autowired
-	CsvConfiguration yamlCsvConfiguration;
+	MailsUtils mailUtils;
 
 	@Autowired
 	private DBFileStorageService dBFileStorageService;
@@ -62,7 +65,7 @@ public class FileController {
 			FileDetailsDb dbStoredFile = dBFileStorageService.storeFile(file);
 			logger.info("dbStoredFile ::"+dbStoredFile);
 			if(dbStoredFile != null){
-				String currentPath = yamlCsvConfiguration.getBaseURl()+STATIC_DOWNLOAD_FILE_URL;
+				String currentPath = mailUtils.getBASE_IP_URL()+STATIC_DOWNLOAD_FILE_URL;
 				String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
 						.path(currentPath)
 						.path(dbStoredFile.getId())

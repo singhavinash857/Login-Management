@@ -31,10 +31,8 @@ import lombok.Data;
 @Data
 @Configuration
 @Component
-@PropertySource("classpath:application.yml")
-
 @PropertySources({
-	@PropertySource("classpath:application.yml"),
+	@PropertySource("classpath:mailutil_data.properties"),
 	@PropertySource("classpath:application.properties")
 })
 public class MailsUtils {

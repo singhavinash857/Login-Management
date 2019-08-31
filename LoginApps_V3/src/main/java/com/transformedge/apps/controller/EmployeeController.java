@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.transformedge.apps.appconfiguration.CsvConfiguration;
 import com.transformedge.apps.appconfiguration.Translator;
 import com.transformedge.apps.entity.Employee;
 import com.transformedge.apps.entity.Role;
@@ -46,10 +45,10 @@ import com.transformedge.apps.service.UserLoginInfoService;
 @RequestMapping(value="${spring.data.rest.base-path}/employee_controller")
 public class EmployeeController {
 
-	@SuppressWarnings("unused")
+	/*@SuppressWarnings("unused")
 	@Autowired
 	private CsvConfiguration csvConfiguration;
-
+*/
 	@Autowired
 	private EmployeeService employeeServiceIMPL;
 	

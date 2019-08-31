@@ -39,7 +39,7 @@ public class DBFileStorageService {
             }
         } catch (IOException ex) {
         	String couldNotStoreFile = Translator.toLocale("file.invalid.coludNotStore");
-            throw new FileStorageException(couldNotStoreFile+fileName);
+            throw new FileStorageException(couldNotStoreFile);
         }
     }
 

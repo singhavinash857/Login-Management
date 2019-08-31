@@ -1,22 +1,15 @@
 package com.transformedge.apps.controller;
 
-import java.util.List;
-import java.util.Locale;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.transformedge.apps.appconfiguration.CsvConfiguration;
 import com.transformedge.apps.appconfiguration.Translator;
-import com.transformedge.apps.entity.Employee;
 import com.transformedge.apps.entity.Task;
-import com.transformedge.apps.loginlogouthandler.ActiveUserStore;
 import com.transformedge.apps.repository.EmployeeRepository;
 import com.transformedge.apps.repository.TaskRepository;
 
@@ -24,8 +17,8 @@ import com.transformedge.apps.repository.TaskRepository;
 @RequestMapping(value="${spring.data.rest.base-path}/test_controller")
 public class TestController {
 
-	@Autowired
-	CsvConfiguration csvConfiguration;
+//	@Autowired
+//	CsvConfiguration csvConfiguration;
 
 	@Autowired
 	MessageSource localeMessageSource;
